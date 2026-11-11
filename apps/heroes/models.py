@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -116,3 +117,40 @@ class HeroAbility(models.Model):
 
     def __str__(self):
         return f"{self.hero_template.name}: {self.name}"
+
+
+class PlayerHero(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="heroes",
+    )
+
+    template = models.ForeignKey(
+        HeroTemplate,
+        on_delete=models.PROTECT,
+        related_name="player_instances",
+    )
+
+    level = models.PositiveIntegerField(default=1)
+    experience = models.PositiveIntegerField(default=0)
+
+    current_stats = models.JSONField(default=dict, blank=True)
+    unlocked_ability_ids = models.JSONField(default=list, blank=True)
+    assignment = models.JSONField(default=dict, blank=True)
+    condition = models.JSONField(default=dict, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created_at"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "template"],
+                name="unique_hero_template_per_user",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.user} — {self.template.name}"
