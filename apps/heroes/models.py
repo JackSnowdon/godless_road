@@ -56,8 +56,63 @@ class HeroTemplate(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "hero template"
-        verbose_name_plural = "hero templates"
+        verbose_name = "hero"
+        verbose_name_plural = "heroes"
 
     def __str__(self):
         return f"{self.name}, {self.title}"
+
+
+class AbilityType(models.TextChoices):
+    ACTIVE = "active", "Active"
+    PASSIVE = "passive", "Passive"
+    AURA = "aura", "Aura"
+    ULTIMATE = "ultimate", "Ultimate"
+
+
+class HeroAbility(models.Model):
+    hero_template = models.ForeignKey(
+        HeroTemplate,
+        on_delete=models.CASCADE,
+        related_name="abilities",
+    )
+
+    slug = models.SlugField(max_length=100)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    ability_type = models.CharField(
+        max_length=20,
+        choices=AbilityType.choices,
+        default=AbilityType.ACTIVE,
+    )
+
+    unlock_level = models.PositiveIntegerField(default=1)
+    cooldown_ticks = models.PositiveIntegerField(default=0)
+    resource_cost = models.JSONField(default=dict, blank=True)
+
+    data = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text=(
+            "Ability-specific parameters. Keep combat effects here until "
+            "the ability system stabilises."
+        ),
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["hero_template__name", "unlock_level", "name"]
+        verbose_name = "hero ability"
+        verbose_name_plural = "abilities"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["hero_template", "slug"],
+                name="unique_ability_slug_per_hero",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.hero_template.name}: {self.name}"
