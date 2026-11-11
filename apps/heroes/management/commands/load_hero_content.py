@@ -4,6 +4,7 @@ from pathlib import Path
 from django.core.management.base import BaseCommand, CommandError
 
 from apps.heroes.services import HeroContentData, HeroContentService
+from apps.heroes.content_validation import HeroContentValidator
 
 CONTENT_DIR = Path("content") / "heroes"
 
@@ -37,6 +38,20 @@ class Command(BaseCommand):
                 raw_data = json.loads(json_file.read_text(encoding="utf-8"))
             except json.JSONDecodeError as error:
                 raise CommandError(f"Invalid JSON in {json_file}: {error}")
+
+            validator = HeroContentValidator()
+            validation_errors = validator.validate(raw_data)
+
+            if validation_errors:
+                error_messages = [
+                    f"{error.field}: {error.message}"
+                    for error in validation_errors
+                ]
+
+                raise CommandError(
+                    f"Invalid Hero content in {json_file}:\n"
+                    + "\n".join(error_messages)
+                )
 
             hero_data = HeroContentData(
                 slug=raw_data["slug"],

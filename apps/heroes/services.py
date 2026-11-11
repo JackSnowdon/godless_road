@@ -26,6 +26,34 @@ class HeroContentService:
     def __init__(self, hero_data: HeroContentData):
         self.hero_data = hero_data
 
+    def get_changes(self, existing_hero: HeroTemplate) -> dict:
+        proposed_fields = {
+            "name": self.hero_data.name,
+            "title": self.hero_data.title,
+            "biography": self.hero_data.biography,
+            "primary_affinity": self.hero_data.primary_affinity,
+            "secondary_affinity": self.hero_data.secondary_affinity,
+            "base_stats": self.hero_data.base_stats,
+            "growth": self.hero_data.growth,
+            "visual": self.hero_data.visual,
+            "tags": self.hero_data.tags,
+            "is_playable": self.hero_data.is_playable,
+            "is_recruitable": self.hero_data.is_recruitable,
+        }
+
+        changes = {}
+
+        for field, proposed_value in proposed_fields.items():
+            current_value = getattr(existing_hero, field)
+
+            if current_value != proposed_value:
+                changes[field] = {
+                    "current": current_value,
+                    "proposed": proposed_value,
+                }
+
+        return changes
+
     @transaction.atomic
     def upsert(self) -> HeroTemplate:
         hero, _ = HeroTemplate.objects.update_or_create(
