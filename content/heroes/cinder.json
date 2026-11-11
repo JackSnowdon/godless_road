@@ -1,0 +1,46 @@
+{
+  "slug": "cinder",
+  "name": "Cinder",
+  "title": "The Ashforged",
+  "biography": "A forge-born survivor who turns ruin into weapons and shelter.",
+  "primary_affinity": "ember",
+  "secondary_affinity": "",
+  "base_stats": {
+    "health": 100,
+    "attack": 14,
+    "defence": 8,
+    "speed": 5,
+    "range": 2
+  },
+  "growth": {
+    "health_per_level": 6,
+    "attack_per_level": 2,
+    "defence_per_level": 1
+  },
+  "visual": {
+    "colour": "#b8452b",
+    "icon": "cinder"
+  },
+  "tags": ["damage", "siege", "construction"],
+  "is_playable": true,
+  "is_recruitable": false,
+  "abilities": [
+    {
+      "slug": "ember-strike",
+      "name": "Ember Strike",
+      "description": "Unleashes a burst of ember-fire that damages and weakens armour.",
+      "ability_type": "active",
+      "unlock_level": 1,
+      "cooldown_ticks": 6,
+      "resource_cost": {
+        "ember": 2
+      },
+      "data": {
+        "radius": 2,
+        "damage": 25,
+        "armour_reduction": 10,
+        "burn_ticks": 3
+      }
+    }
+  ]
+}

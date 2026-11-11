@@ -1,0 +1,46 @@
+{
+  "slug": "mara-veyra",
+  "name": "Mara Veyra",
+  "title": "The Last Warden",
+  "biography": "A survivor who believes that protection is the first act of rebuilding.",
+  "primary_affinity": "verdant",
+  "secondary_affinity": "aether",
+  "base_stats": {
+    "health": 120,
+    "attack": 8,
+    "defence": 14,
+    "speed": 4,
+    "range": 1
+  },
+  "growth": {
+    "health_per_level": 8,
+    "attack_per_level": 1,
+    "defence_per_level": 2
+  },
+  "visual": {
+    "colour": "#4f7942",
+    "icon": "mara_veyra"
+  },
+  "tags": ["protector", "support", "terrain"],
+  "is_playable": true,
+  "is_recruitable": false,
+  "abilities": [
+    {
+      "slug": "rootbind",
+      "name": "Rootbind",
+      "description": "Roots nearby enemies in place for a short time.",
+      "ability_type": "active",
+      "unlock_level": 1,
+      "cooldown_ticks": 8,
+      "resource_cost": {
+        "verdant": 2
+      },
+      "data": {
+        "radius": 2,
+        "duration_ticks": 4,
+        "root_chance": 0.65,
+        "affected_enemy_tags": ["ground"]
+      }
+    }
+  ]
+}

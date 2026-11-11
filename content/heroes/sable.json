@@ -1,0 +1,45 @@
+{
+  "slug": "sable",
+  "name": "Sable",
+  "title": "The Hollow Oracle",
+  "biography": "A quiet survivor who hears fragments of the abandoned divine chorus.",
+  "primary_affinity": "aether",
+  "secondary_affinity": "",
+  "base_stats": {
+    "health": 90,
+    "attack": 6,
+    "defence": 6,
+    "speed": 5,
+    "range": 3
+  },
+  "growth": {
+    "health_per_level": 5,
+    "attack_per_level": 1,
+    "defence_per_level": 1
+  },
+  "visual": {
+    "colour": "#5b4b8a",
+    "icon": "sable"
+  },
+  "tags": ["support", "detection", "ritual"],
+  "is_playable": true,
+  "is_recruitable": false,
+  "abilities": [
+    {
+      "slug": "hollow-sight",
+      "name": "Hollow Sight",
+      "description": "Reveals hidden threats and weakens corrupted enemies.",
+      "ability_type": "active",
+      "unlock_level": 1,
+      "cooldown_ticks": 10,
+      "resource_cost": {
+        "aether": 2
+      },
+      "data": {
+        "reveal_radius": 4,
+        "corruption_reduction": 15,
+        "duration_ticks": 6
+      }
+    }
+  ]
+}
