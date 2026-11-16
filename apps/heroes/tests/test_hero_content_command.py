@@ -133,7 +133,7 @@ def test_dry_run_does_not_create_hero(
     assert HeroTemplate.objects.count() == 0
     assert HeroAbility.objects.count() == 0
     assert "Would create Mara Veyra" in output
-    assert "1 created" in output
+    assert "1 would create" in output
 
 
 def test_force_overwrites_changed_hero(
