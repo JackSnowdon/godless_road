@@ -98,6 +98,7 @@ class HeroContentService:
         self,
         existing_hero: HeroTemplate,
     ) -> dict:
+        
         existing_abilities = {
             ability.slug: ability
             for ability in existing_hero.abilities.all()
@@ -142,7 +143,6 @@ class HeroContentService:
                 }
 
         return changes
-
     
     def _get_ability_field_changes(
         self,
