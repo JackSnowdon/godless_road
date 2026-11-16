@@ -13,7 +13,7 @@
     "range": 1
   },
   "growth": {
-    "health_per_level": 10,
+    "health_per_level": 8,
     "attack_per_level": 1,
     "defence_per_level": 2
   },
