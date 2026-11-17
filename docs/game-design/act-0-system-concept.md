@@ -421,6 +421,28 @@ The run ends only when every Survivor is lost.
 Emergency actions may be expensive, inefficient, or morally costly, but they
 should provide a path through extreme situations.
 
+## Act 0 difficulty intent
+
+Act 0 is a teaching arc, not a brutal survival challenge.
+
+Its purpose is to help the player understand and enjoy the core loop:
+
+- Choose a camp location.
+- Allocate Followers and Heroes.
+- Run simple missions.
+- Develop a basic camp.
+- Survive a readable night threat.
+- Decide whether to remain or move.
+
+Early failures should be recoverable. Resource scarcity, camp exposure, and
+night threats should create tension without creating a punishing spiral.
+
+The first three days should focus on establishing the caravan and learning the
+core systems. Pressure should rise gradually across the 14-day arc.
+
+The player should finish Act 0 feeling capable, curious, and motivated to
+continue beyond the initial region.
+
 ## Failure states
 
 The campaign ends if every Survivor is lost.
