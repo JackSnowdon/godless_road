@@ -394,6 +394,33 @@ New capability should create new needs:
 - Better missions require preparation and equipment.
 - Future settlements will require supply lines and protection.
 
+## Crisis and recovery
+
+The game should avoid softlocks and unwinnable resource spirals.
+
+In a crisis, the player should always have at least two imperfect options.
+
+A crisis may remove comfort, safety, or efficiency, but it should not remove
+the player’s ability to act.
+
+Every crisis should offer choices with real trade-offs between:
+
+- Safety
+- Progress
+- Mobility
+- People
+- Resources
+- Information
+
+Resource scarcity should escalate through Caution, Critical, Dire, and Terminal
+states. It should create pressure and force difficult decisions, but it should
+not immediately end the run.
+
+The run ends only when every Survivor is lost.
+
+Emergency actions may be expensive, inefficient, or morally costly, but they
+should provide a path through extreme situations.
+
 ## Failure states
 
 The campaign ends if every Survivor is lost.
