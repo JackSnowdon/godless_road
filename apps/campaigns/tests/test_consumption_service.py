@@ -8,7 +8,11 @@ from apps.campaigns.models import (
     ResourceTemplate,
     Stockpile,
 )
-from apps.campaigns.services import ConsumptionService, ResourceService
+from apps.campaigns.services import (
+    ConsumptionService, 
+    ResourceService, 
+    InsufficientSuppliesError
+)
 
 
 pytestmark = pytest.mark.django_db
@@ -125,7 +129,7 @@ def test_consumption_fails_when_food_is_insufficient(
     caravan_service.add_resource(food, Decimal("10.00"))
     caravan_service.add_resource(water, Decimal("30.00"))
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InsufficientSuppliesError):
         consumption_service.consume_daily_supplies()
 
     assert caravan_service.get_resource_quantity(food) == Decimal("10.00")
@@ -144,7 +148,7 @@ def test_consumption_fails_when_water_is_insufficient(
     caravan_service.add_resource(food, Decimal("30.00"))
     caravan_service.add_resource(water, Decimal("10.00"))
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InsufficientSuppliesError):
         consumption_service.consume_daily_supplies()
 
     assert caravan_service.get_resource_quantity(food) == Decimal("30.00")

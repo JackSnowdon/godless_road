@@ -1,26 +1,20 @@
 ## Current position
 
-The campaigns app has a working survival-resource foundation:
-Campaign, Caravan, ResourceTemplate, Stockpile, ResourceAmount,
-ResourceService and ConsumptionService
+The campaigns app now has a basic survival loop:
 
-Resource transfers between camp and caravan are implemented and tested.
-Caravan carry capacity is enforced on transfers into the caravan.
+- Campaign time advances through six daily blocks.
+- Advancing from Dusk begins the next day at Night.
+- The day transition triggers daily Food and Water consumption.
+- Consumption is atomic: insufficient Food or Water prevents the
+  day from advancing and leaves resources unchanged.
+- Caravan supplies are consumed; camp supplies remain in storage.
 
-## Future consumption depth
+## Next tiny step
 
-The basic daily consumption system currently requires enough Food
-and Water for every Survivor. A failed consumption changes nothing.
+Introduce InsufficientSuppliesError so the time service can clearly
+communicate that the caravan cannot afford another day.
 
-Later, expand this into a rationing and quality system:
+## After that
 
-- Tiered Food and Water provide different benefits.
-- Higher-tier supplies may grant temporary daily buffs.
-- Players may choose to ration limited supplies.
-- Rationing Food creates slower, accumulating consequences.
-- Rationing Water creates faster, more severe consequences.
-- Water is more vital than Food.
-- Severe shortages may lead to fatigue, morale loss, injury,
-  or survivor loss.
-
-Do not implement this until the basic time advancement loop is complete.
+Expose a minimal campaign-state and time-advancement API so the React
+client can display the current day, block, resources, and caravan state.

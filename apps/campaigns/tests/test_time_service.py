@@ -8,8 +8,11 @@ from apps.campaigns.models import (
     ResourceTemplate,
     Stockpile,
 )
-from apps.campaigns.services import ResourceService, TimeService
-
+from apps.campaigns.services import (
+    InsufficientSuppliesError,
+    ResourceService, 
+    TimeService, 
+)
 
 pytestmark = pytest.mark.django_db
 
@@ -185,7 +188,7 @@ def test_day_does_not_advance_when_supplies_are_insufficient(
     caravan.campaign.current_block = 6
     caravan.campaign.save()
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InsufficientSuppliesError):
         time_service.advance_block()
 
     campaign = caravan.campaign

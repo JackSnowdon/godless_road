@@ -12,6 +12,15 @@ from apps.campaigns.models import (
 )
 
 
+# Expection Classes
+
+class InsufficientSuppliesError(Exception):
+    """Raised when the caravan cannot afford another day of supplies."""
+
+
+# Service Classes
+
+
 class ResourceService:
     def __init__(self, stockpile: Stockpile):
         self.stockpile = stockpile
@@ -167,14 +176,14 @@ class ConsumptionService:
         water_quantity = caravan_service.get_resource_quantity(water)
 
         if food_quantity < required_quantity:
-            raise ValueError(
+            raise InsufficientSuppliesError(
                 f"Cannot consume daily supplies; "
                 f"requires {required_quantity} {food.name}, "
                 f"but only {food_quantity} available."
             )
 
         if water_quantity < required_quantity:
-            raise ValueError(
+            raise InsufficientSuppliesError(
                 f"Cannot consume daily supplies; "
                 f"requires {required_quantity} {water.name}, "
                 f"but only {water_quantity} available."
