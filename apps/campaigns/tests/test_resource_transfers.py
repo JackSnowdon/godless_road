@@ -32,9 +32,9 @@ def caravan(campaign):
 
 
 @pytest.fixture
-def caravan_stockpile(campaign):
+def caravan_stockpile(caravan):
     return Stockpile.objects.create(
-        campaign=campaign,
+        campaign=caravan.campaign,
         context=Stockpile.Context.CARAVAN,
     )
 
@@ -56,7 +56,6 @@ def water():
         tier=0,
         weight_per_unit=Decimal("1.00"),
     )
-
 
 def test_transfer_moves_resource_from_camp_to_caravan(
     camp_stockpile,
