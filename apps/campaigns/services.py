@@ -138,6 +138,13 @@ class ConsumptionService:
 
         required_quantity = Decimal(self.caravan.survivor_count)
 
+        self._validate_required_supplies(
+            caravan_service=caravan_service,
+            food=food,
+            water=water,
+            required_quantity=required_quantity,
+        )
+
         caravan_service.remove_resource(
             resource=food,
             quantity=required_quantity,
@@ -147,3 +154,27 @@ class ConsumptionService:
             resource=water,
             quantity=required_quantity,
         )
+
+    def _validate_required_supplies(
+        self,
+        caravan_service: ResourceService,
+        food: ResourceTemplate,
+        water: ResourceTemplate,
+        required_quantity: Decimal,
+    ) -> None:
+        food_quantity = caravan_service.get_resource_quantity(food)
+        water_quantity = caravan_service.get_resource_quantity(water)
+
+        if food_quantity < required_quantity:
+            raise ValueError(
+                f"Cannot consume daily supplies; "
+                f"requires {required_quantity} {food.name}, "
+                f"but only {food_quantity} available."
+            )
+
+        if water_quantity < required_quantity:
+            raise ValueError(
+                f"Cannot consume daily supplies; "
+                f"requires {required_quantity} {water.name}, "
+                f"but only {water_quantity} available."
+            )
