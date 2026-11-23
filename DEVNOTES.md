@@ -2,18 +2,25 @@
 
 The campaigns app has a working survival-resource foundation:
 Campaign, Caravan, ResourceTemplate, Stockpile, ResourceAmount,
-and ResourceService.
+ResourceService and ConsumptionService
 
 Resource transfers between camp and caravan are implemented and tested.
 Caravan carry capacity is enforced on transfers into the caravan.
 
-## Next tiny step
+## Future consumption depth
 
-Add daily Food and Water consumption for the caravan.
+The basic daily consumption system currently requires enough Food
+and Water for every Survivor. A failed consumption changes nothing.
 
-Create a ConsumptionService or extend ResourceService with a method that
-consumes the required Food and Water for the caravan’s current Survivor count.
+Later, expand this into a rationing and quality system:
 
-## First test to write
+- Tiered Food and Water provide different benefits.
+- Higher-tier supplies may grant temporary daily buffs.
+- Players may choose to ration limited supplies.
+- Rationing Food creates slower, accumulating consequences.
+- Rationing Water creates faster, more severe consequences.
+- Water is more vital than Food.
+- Severe shortages may lead to fatigue, morale loss, injury,
+  or survivor loss.
 
-test_daily_consumption_removes_food_and_water
+Do not implement this until the basic time advancement loop is complete.

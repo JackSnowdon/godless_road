@@ -4,6 +4,7 @@ from django.db import transaction
 from django.db.models import DecimalField, F, Sum
 
 from apps.campaigns.models import (
+    Campaign,
     Caravan,
     ResourceAmount,
     ResourceTemplate,
@@ -178,3 +179,19 @@ class ConsumptionService:
                 f"requires {required_quantity} {water.name}, "
                 f"but only {water_quantity} available."
             )
+
+
+class TimeService:
+    BLOCKS_PER_DAY = 6
+
+    def __init__(self, campaign: Campaign):
+        self.campaign = campaign
+
+    def advance_block(self) -> None:
+        if self.campaign.current_block < self.BLOCKS_PER_DAY:
+            self.campaign.current_block += 1
+        else:
+            self.campaign.current_day += 1
+            self.campaign.current_block = 1
+
+        self.campaign.save()
