@@ -187,6 +187,7 @@ class TimeService:
     def __init__(self, campaign: Campaign):
         self.campaign = campaign
 
+    @transaction.atomic
     def advance_block(self) -> None:
         if self.campaign.current_block < self.BLOCKS_PER_DAY:
             self.campaign.current_block += 1
@@ -194,4 +195,15 @@ class TimeService:
             self.campaign.current_day += 1
             self.campaign.current_block = 1
 
+            self._consume_daily_supplies()
+
         self.campaign.save()
+
+    def _consume_daily_supplies(self) -> None:
+        caravan = self.campaign.caravan
+
+        if caravan is None:
+            return
+
+        consumption_service = ConsumptionService(caravan)
+        consumption_service.consume_daily_supplies()
