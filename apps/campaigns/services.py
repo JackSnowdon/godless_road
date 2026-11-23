@@ -3,7 +3,12 @@ from decimal import Decimal
 from django.db import transaction
 from django.db.models import DecimalField, F, Sum
 
-from apps.campaigns.models import ResourceAmount, Stockpile
+from apps.campaigns.models import (
+    Caravan,
+    ResourceAmount,
+    ResourceTemplate,
+    Stockpile,
+)
 
 
 class ResourceService:
@@ -111,3 +116,34 @@ class ResourceService:
 
         self.remove_resource(resource, quantity)
         destination_service.add_resource(resource, quantity)
+
+
+class ConsumptionService:
+    def __init__(self, caravan: Caravan):
+        self.caravan = caravan
+
+    def consume_daily_supplies(self) -> None:
+        caravan_stockpile = self.caravan.campaign.stockpiles.get(
+            context=Stockpile.Context.CARAVAN,
+        )
+
+        caravan_service = ResourceService(caravan_stockpile)
+
+        food = ResourceTemplate.objects.get(
+            category=ResourceTemplate.Category.FOOD,
+        )
+        water = ResourceTemplate.objects.get(
+            category=ResourceTemplate.Category.WATER,
+        )
+
+        required_quantity = Decimal(self.caravan.survivor_count)
+
+        caravan_service.remove_resource(
+            resource=food,
+            quantity=required_quantity,
+        )
+
+        caravan_service.remove_resource(
+            resource=water,
+            quantity=required_quantity,
+        )
