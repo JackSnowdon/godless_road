@@ -1,20 +1,21 @@
 ## Current position
 
-The campaigns app now exposes a read-only campaign-state endpoint:
+The Django API now supports the first campaign interaction loop:
 
-GET /api/campaigns/<id>/state/
-
-It returns the current day, block, phase, caravan capacity,
-and resources held in the caravan and camp stockpiles.
+- GET /api/campaigns/<id>/state/ returns campaign, caravan,
+  and stockpile state.
+- POST /api/campaigns/<id>/advance-time/ advances one time block.
+- The day boundary triggers atomic Food and Water consumption.
+- Insufficient supplies return a 400 response and leave state unchanged.
 
 ## Next tiny step
 
-Add POST /api/campaigns/<id>/advance-time/.
+Create the React API module and first CampaignPage.
 
-The endpoint should call TimeService.advance_block(), return the
-updated campaign state, and translate InsufficientSuppliesError into
-a 400 Bad Request response.
+The page should display current time, caravan capacity, and resources,
+then allow the player to advance time.
 
-## First test
+## First React tests
 
-test_advance_time_endpoint_advances_one_block
+- getCampaignState requests the campaign state endpoint
+- advanceCampaignTime posts to the advance time endpoint

@@ -40,6 +40,29 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Node / React later
-node_modules/
-dist/
+# React Frontend
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# Frontend local environment
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Frontend caches and logs
+frontend/.vite/
+frontend/*.log
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
