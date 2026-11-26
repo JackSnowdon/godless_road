@@ -1,10 +1,7 @@
+import CampaignPage from "./pages/CampaignPage.jsx";
+
 function App() {
-  return (
-    <main>
-      <h1>Godless Road</h1>
-      <p>Campaign loading…</p>
-    </main>
-  );
+  return <CampaignPage />;
 }
 
 export default App;

@@ -8,12 +8,12 @@ from apps.campaigns.views import (
 
 urlpatterns = [
     path(
-        "<int:pk>/state/",
+        "campaigns/<int:pk>/state/",
         CampaignStateView.as_view(),
         name="campaign-state",
     ),
     path(
-        "<int:pk>/advance-time/",
+        "campaigns/<int:pk>/advance-time/",
         CampaignAdvanceTimeView.as_view(),
         name="campaign-advance-time",
     ),
