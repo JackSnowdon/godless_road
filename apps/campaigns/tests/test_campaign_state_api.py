@@ -122,6 +122,7 @@ def test_campaign_state_endpoint_returns_campaign_and_caravan(
 
     assert data["camp_resources"] == []
 
+
 def test_campaign_state_handles_missing_camp_stockpile(
     api_client,
     campaign,

@@ -1,30 +1,20 @@
 ## Current position
 
-The campaigns app now has a basic survival loop:
+The campaigns app now exposes a read-only campaign-state endpoint:
 
-- Campaign time advances through six daily blocks.
-- Advancing from Dusk begins the next day at Night.
-- The day transition triggers daily Food and Water consumption.
-- Consumption is atomic: insufficient Food or Water prevents the
-  day from advancing and leaves resources unchanged.
-- Caravan supplies are consumed; camp supplies remain in storage.
-- InsufficientSuppliesError clearly represents a shortage outcome.
+GET /api/campaigns/<id>/state/
+
+It returns the current day, block, phase, caravan capacity,
+and resources held in the caravan and camp stockpiles.
 
 ## Next tiny step
 
-Design and implement a minimal campaign-state API.
+Add POST /api/campaigns/<id>/advance-time/.
 
-The first endpoint should return the data needed by the React client:
+The endpoint should call TimeService.advance_block(), return the
+updated campaign state, and translate InsufficientSuppliesError into
+a 400 Bad Request response.
 
-- Campaign ID
-- Current day
-- Current block
-- Caravan survivor count
-- Caravan carry capacity
-- Caravan stockpile resources
-- Camp stockpile resources
+## First test
 
-## After that
-
-Add a time-advancement endpoint that calls TimeService.advance_block()
-and translates InsufficientSuppliesError into a clear API error response.
+test_advance_time_endpoint_advances_one_block
